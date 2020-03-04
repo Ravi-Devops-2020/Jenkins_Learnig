@@ -1,0 +1,21 @@
+#docker-compose file for jenkins installation
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins
+    ports:
+      - "8080:8080"
+    volumes:
+      - "$PWD/jenkins_home:/var/lib/jenkins_home"
+    networks:
+      - net
+  remote_host:
+    container_name: remote-host 
+    image: centos
+    build:
+      context: centos7
+    networks:
+      - net
+networks:
+   net:

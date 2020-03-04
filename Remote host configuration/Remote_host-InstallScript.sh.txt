@@ -1,0 +1,14 @@
+docker-compose build
+docker-compose up -d
+cd /home/jenkins/jenkins-data/centos7
+ssh-keygen -f remote-key
+docker cp remote-key.pub remote-host:/home/remote_user/.ssh/authorized_keys
+docker exec -ti remote-host bash
+chmod 600 /home/remote_user/.ssh/authorized_keys
+exit
+docker cp remote-key jenkins:/tmp/
+docker exec -ti jenkins bash
+cd /tmp
+ssh -i remote-key remote_user@remote_host
+
+
